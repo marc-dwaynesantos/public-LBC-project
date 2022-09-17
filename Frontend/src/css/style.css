@@ -1,0 +1,113 @@
+:root {
+    /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
+    --primary-color: #131921;
+    --secondary-color: #efe7dc;
+    --error-color: rgba(194, 0, 0, 0.71);
+}
+
+.background {
+    background-image: url("https://media.cntraveler.com/photos/6261c2a3601efa238bb1ab66/16:9/w_2495,h_1403,c_limit/Sessions%20Arts%20Club_Copy%20of%20Copy%20of%20SHOT-12_102_ef.jpg");
+    background-repeat: no-repeat;
+    /*background-color: #eaeded;*/
+    margin: 0;
+    counter-reset: section;
+}
+
+.header {
+    /* Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+    display: flex;
+    /*justify-content: space-between;*/
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 0 20px;
+}
+.header_home {
+    font-size: 36px;
+    line-height: 55px;
+    height: 100px;
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+.header_nav_link {
+    margin-left: 20px;
+    vertical-align: center;
+    line-height: 55px;
+}
+
+.about {
+    font-size: 18.85px;
+    /*margin-left: 20px;*/
+    justify-content: center;
+    align-items: center;
+}
+
+.button, button {
+    background: #aed9ff;
+    padding: 3px;
+    border-radius: 3px;
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.button:hover, button:hover {
+    background: #9cc3e4;
+}
+
+.container3 {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.container {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+}
+
+.container2 {
+    display: flex;
+    justify-content: right;
+    flex-direction: row;
+}
+
+.card {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    margin: 20px;
+    padding: 10px 30px;
+            border-style: solid;
+            border-color: #813923;
+}
+
+.validated-field:invalid {
+    outline: 2px solid var(--error-color);
+}
+.validated-field:focus:invalid {
+    color: var(--error-color);
+}
+
+.card-content {
+    max-width: 500px;
+}
+
+.card-content .form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+#concert-list li {
+    margin-bottom: 1rem;
+}
+
+.state {
+    display: none;
+}
+
+.state.active {
+    display: block;
+}

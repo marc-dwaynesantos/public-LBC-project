@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="restaurantPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body class="background">
+    <header class="header" id="header">
+        <div class="site-title">
+            <img src="https://i.imgur.com/X2hQX7y.png" alt="logo">
+            <a class="header_home" href="index.html">Yummy Food</a>
+            <a class="header_nav_link button" href="review.html">Write a Review</a>
+        </div>
+    </header>
+    <div class="container3">
+        <div class="card">
+            <p class="about">
+                <em><strong>Welcome to Yummy Food. We will present you with the best Restaurants available!
+                    Read a review, leave a review.</strong></em>
+            </p>
+        </div>
+    </div>
+    <div class="container3">
+    <div class="container">
+        <div class="card">
+            <h2>Restaurants</h2>
+            <form class="card-content" id="generate-restaurants">
+                <button type="submit">Generate Restaurants</button>
+            </form>
+            <form class="card-content" id="get-restaurants">
+                <button type="submit">Display Restaurants</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2>Restaurant Details</h2>
+            <form class="card-content" id="get-by-restaurant-id">
+                <p class="form-field">
+                    <label>Discover more about a restaurant</label>
+                    <input type="text" required class="validated-field" id="restaurant-id" placeholder="Restaurant ID goes here...">
+                </p>
+                <button type="submit">Discover</button>
+            </form>
+        </div>
+    </div>
+    <div class="container2">
+        <div class="card" id="result">
+            <h2>Showing Restaurant(s):</h2>
+            <p id="restaurant-info"></p>
+        </div>
+    </div>
+    </div>
+    <!--    <div class="card" id="single-result">-->
+    <!--        <h2>Review for the Restaurant:</h2>-->
+    <!--        <p id="restaurant-result-info2"></p>-->
+    <!--    </div>-->
+</body>
+</html>

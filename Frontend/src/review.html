@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="reviewPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body class="background">
+<header class="header" id="header">
+    <div class="site-title">
+        <img src="https://i.imgur.com/X2hQX7y.png" alt="logo">
+        <a class="header_home" href="review.html">Yummy Food</a>
+        <a class="header_nav_link button" href="index.html">Find a Restaurant</a>
+    </div>
+</header>
+<div class="container3">
+    <div class="container">
+        <div class="card">
+            <h2>All Restaurant Reviews</h2>
+            <form class="card-content" id="get-reviews">
+                <button type="submit">Get All</button>
+            </form>
+            <h2>Get Reviews by Id</h2>
+            <form class="card-content" id="get-reviews-by-restaurantId">
+                <p class="form-field">
+                    <label>Restaurant ID</label>
+                    <input type="text" required class="validated-field" id="get-review-restaurantId">
+                </p>
+                <button type="submit">Get By Restaurant ID</button>
+            </form>
+            <h2>Delete a Review</h2>
+            <form class="card-content" id="delete-reviews">
+                <p class="form-field">
+                    <label>Restaurant ID</label>
+                    <input type="text" required class="validated-field" id="delete-review-restaurantId">
+                </p>
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>Create a Review</h2>
+            <form class="card-content" id="create-reviews">
+                <p class="form-field">
+                    <label>Restaurant ID</label>
+                    <input type="text" required class="validated-field" id="create-new-review-restaurantId">
+                </p>
+                <p class="form-field">
+                    <label>User ID</label>
+                    <input type="text" required class="validated-field" id="create-new-review-userId">
+                </p>
+                <p class="form-field">
+                    <label>Rating</label>
+                    <input type="text" required class="validated-field" id="create-new-review-rating"
+                           placeholder="Number (1-5)">
+                </p>
+                <p class="form-field">
+                    <label>Review</label>
+                    <textarea style="resize: none; border: 2px solid rgba(194, 0, 0, 0.71);" required
+                              class="validated-field" id="create-new-review-review"> </textarea>
+                </p>
+                <button type="submit">Create</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>Update a Review</h2>
+            <form class="card-content" id="update-reviews">
+                <p class="form-field">
+                    <label>Restaurant ID</label>
+                    <input type="text" required class="validated-field" id="update-review-restaurantId">
+                </p>
+                <p class="form-field">
+                    <label>User ID</label>
+                    <input type="text" required class="validated-field" id="update-review-userId">
+                </p>
+                <p class="form-field">
+                    <label>Rating</label>
+                    <input type="text" required class="validated-field" id="update-review-rating"
+                           placeholder="Number (1-5)">
+                </p>
+                <p class="form-field">
+                    <label>Review</label>
+                    <textarea style="resize: none; border: 2px solid rgba(194, 0, 0, 0.71);" required
+                              class="validated-field" id="update-review-review"></textarea>
+                </p>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+    <div class="container2">
+        <div class="card" id="result">
+            <h2>Restaurant Reviews:</h2>
+            <p id="result-info"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

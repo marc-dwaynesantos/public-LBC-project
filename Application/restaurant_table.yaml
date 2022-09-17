@@ -1,0 +1,207 @@
+Resources:
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: dynamodbAccessRole
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:*
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - logs:*
+                Resource: "*"
+  RestaurantTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: "DynamoDB-Restaurants"
+      AttributeDefinitions:
+        - AttributeName: "restaurantId"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "restaurantId"
+          KeyType: "HASH"
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: false
+      BillingMode: PAY_PER_REQUEST
+  InitFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: >
+          const AWS = require("aws-sdk");
+          const response = require('./cfn-response');
+          const docClient = new AWS.DynamoDB.DocumentClient();
+          exports.handler = function(event, context) {
+            console.log(JSON.stringify(event,null,2));
+            var params = {
+              RequestItems: {
+                "DynamoDB-Restaurants": [
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "1",
+                        rating: "5",
+                        restaurantName: "McBonalds",
+                        status: "OPEN",
+                        cuisine: "Indian",
+                        location: "New York , NY",
+                        menu: ["Tandoori Chicken", "Lamb Curry", "Chicken Tikka Masala"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "2",
+                        rating: "4",
+                        restaurantName: "KBBQ All You Can Eat",
+                        status: "OPEN",
+                        cuisine: "Korean",
+                        location: "Brooklyn, NY",
+                        menu: ["Pork Belly", "Prime Short Rib", "Beef Short Ribs"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "3",
+                        rating: "1",
+                        restaurantName: "Grandma's Breakfast Diner",
+                        status: "CLOSED",
+                        cuisine: "American",
+                        location: "Queens, NY",
+                        menu: ["Egg Benedict", "Countryside Omelette", "Belgian Waffle"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "4",
+                        rating: "3",
+                        restaurantName: "Downtown Taco",
+                        status: "OPEN",
+                        cuisine: "Mexican",
+                        location: "The Bronx, NY",
+                        menu: ["Buffalo Chicken Taco", "Steak Quesadilla", "BBQ Chicken Taco"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "5",
+                        rating: "5",
+                        restaurantName: "Eight China",
+                        status: "OPEN",
+                        cuisine: "Chinese",
+                        location: "Staten Island, NY",
+                        menu: ["Peking Roasted Duck", "Kung Pao Chicken", "Ma Po Tofu"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "6",
+                        rating: "4",
+                        restaurantName: "Thai 202",
+                        status: "OPEN",
+                        cuisine: "Thai",
+                        location: "New York, NY",
+                        menu: ["Spicy Green Papaya Salad", "Pad Thai", "Tom Yum Goong"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "7",
+                        rating: "5",
+                        restaurantName: "Michael's Trattoria",
+                        status: "OPEN",
+                        cuisine: "Italian",
+                        location: "New York, NY",
+                        menu: ["Penne alla Vodka", "Linguini Mare Bello", "Chicken Francese"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "8",
+                        rating: "4",
+                        restaurantName: "Moonstone",
+                        status: "OPEN",
+                        cuisine: "Japanese",
+                        location: "New York, NY",
+                        menu: ["Spicy Tuna Roll", "Miso Ramen", "Kara Age-Don"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "9",
+                        rating: "3",
+                        restaurantName: "Pho Legend",
+                        status: "OPEN",
+                        cuisine: "Vietnamese",
+                        location: "New York, NY",
+                        menu: ["Brisket Pho", "BBQ Beef Banh Mi", "Summer Roll"]
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        restaurantId: "10",
+                        rating: "5",
+                        restaurantName: "Taverna Achates",
+                        status: "OPEN",
+                        cuisine: "Greek",
+                        location: "New York, NY",
+                        menu: ["Grilled Octopus", "Chicken Souvlaki", "Seafood Pasta"]
+                      }
+                    }
+                  }
+                ]
+              }
+            };
+            docClient.batchWrite(params, function(err, data) {
+              if (err) {
+                response.send(event, context, "FAILED", {});
+              } else {
+                response.send(event, context, "SUCCESS", {});
+              }
+            });
+          };
+      Handler: index.handler
+      Role:
+        Fn::GetAtt: [ LambdaRole , "Arn" ]
+      Runtime: nodejs12.x
+      Timeout: 60
+  InitializeRestaurantTable:
+    Type: Custom::InitFunction
+    DependsOn: RestaurantTable
+    Properties:
+      ServiceToken:
+        Fn::GetAtt: [ InitFunction , "Arn" ]
+      DynamoTableName:
+        Ref: RestaurantTable
